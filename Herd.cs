@@ -28,11 +28,25 @@ namespace Robots_Vs._Dinosaurs
             velociraptorSwarm.energy = 100;
 
         }
-        public void AttackRobot(Robot target, Dinosaur dinosaur)
+        public void AttackRobot(Dinosaur dinosaur, Robot target, AttackType attack)
         {
-            AttackType attack = ChooseAttack(dinosaur);
-            target.health -= attack.attackPower;
-            dinosaur.energy -= attack.energyReduction;
+            while (dinosaur.energy < attack.energyReduction)
+            {
+                Console.WriteLine("Not enough energy to use that attack");
+                ChooseAttack(dinosaur);
+            }
+            if(dinosaur.energy >= attack.energyReduction)
+            {
+                target.health -= attack.attackPower;
+                dinosaur.energy -= attack.energyReduction;
+
+                if (target.health <= 0)
+                {
+                    Console.WriteLine($"{target.name.ToUpper()} HAS DIED");
+                }
+            }
+ 
+
         }
 
         public AttackType ChooseAttack(Dinosaur dinosaur)
@@ -41,13 +55,18 @@ namespace Robots_Vs._Dinosaurs
 
                 if (dinosaur == tRex)
                 {
-                    Console.WriteLine($"Choose which attack you would like to use \n1) {dinosaur.tRexAttacks[0].name}\n" +
-                                                                             $"Damage: {dinosaur.tRexAttacks[0].attackPower}\n" +
-                                                                                  $"2) {dinosaur.tRexAttacks[1].name}\n" +
-                                                                             $"Damage: {dinosaur.tRexAttacks[1].attackPower}\n" +
-                                                                                  $"3) {dinosaur.tRexAttacks[2].name}\n" +
-                                                                             $"Damage: {dinosaur.tRexAttacks[2].attackPower}");
-                    int attackOption = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine($"Choose which attack you would like to use \n1) {dinosaur.tRexAttacks[0].name}\n" +
+                                                                         $"Damage: {dinosaur.tRexAttacks[0].attackPower}\n" +
+                                                                         $"Energy Reduction: {dinosaur.tRexAttacks[0].energyReduction}\n" +
+                                                                              $"2) {dinosaur.tRexAttacks[1].name}\n" +
+                                                                         $"Damage: {dinosaur.tRexAttacks[1].attackPower}\n" +
+                                                                         $"Energy Reduction: {dinosaur.tRexAttacks[1].energyReduction}\n" +
+                                                                              $"3) {dinosaur.tRexAttacks[2].name}\n" +
+                                                                         $"Damage: {dinosaur.tRexAttacks[2].attackPower}\n" +
+                                                                         $"Energy Reduction: {dinosaur.tRexAttacks[2].energyReduction}");
+
+                Console.WriteLine("---------------------------------");
+                int attackOption = Convert.ToInt32(Console.ReadLine());
                     switch (attackOption)
                     {
                         case 1:
@@ -70,11 +89,15 @@ namespace Robots_Vs._Dinosaurs
                 {
                     Console.WriteLine($"Choose which attack you would like to use \n1) {dinosaur.triceratopsAttacks[0].name}\n" +
                                                                              $"Damage: {dinosaur.triceratopsAttacks[0].attackPower}\n" +
+                                                                             $"Energy Reduction: {dinosaur.triceratopsAttacks[0].energyReduction}\n" +
                                                                                   $"2) {dinosaur.triceratopsAttacks[1].name}\n" +
                                                                              $"Damage: {dinosaur.triceratopsAttacks[1].attackPower}\n" +
+                                                                             $"Energy Reduction: {dinosaur.triceratopsAttacks[1].energyReduction}\n" +
                                                                                   $"3) {dinosaur.triceratopsAttacks[2].name}\n" +
-                                                                             $"Damage: {dinosaur.triceratopsAttacks[2].attackPower}");
-                    int attackOption;
+                                                                             $"Damage: {dinosaur.triceratopsAttacks[2].attackPower}\n" +
+                                                                             $"Energy Reduction: {dinosaur.triceratopsAttacks[2].energyReduction}");
+                Console.WriteLine("---------------------------------");
+                int attackOption;
 
                     attackOption = Convert.ToInt32(Console.ReadLine());
                     switch (attackOption)
@@ -96,13 +119,17 @@ namespace Robots_Vs._Dinosaurs
                 }
                 else if (dinosaur == velociraptorSwarm)
                 {
-                    Console.WriteLine($"Choose which attack you would like to use \n1) {velociraptorSwarm.velociraptorSwarmAttacks[0].name}\n" +
-                                                                             $"Damage: {velociraptorSwarm.velociraptorSwarmAttacks[0].attackPower}\n" +
-                                                                                  $"2) {velociraptorSwarm.velociraptorSwarmAttacks[1].name}\n" +
-                                                                             $"Damage: {velociraptorSwarm.velociraptorSwarmAttacks[1].attackPower}\n" +
-                                                                                  $"3) {velociraptorSwarm.velociraptorSwarmAttacks[2].name}\n" +
-                                                                             $"Damage: {velociraptorSwarm.velociraptorSwarmAttacks[2].attackPower}");
-                    int attackOption;
+                    Console.WriteLine($"Choose which attack you would like to use \n1) {dinosaur.velociraptorSwarmAttacks[0].name}\n" +
+                                                                             $"Damage: {dinosaur.velociraptorSwarmAttacks[0].attackPower}\n" +
+                                                                             $"Energy Reduction: {dinosaur.velociraptorSwarmAttacks[0].energyReduction}\n" +
+                                                                                  $"2) {dinosaur.velociraptorSwarmAttacks[1].name}\n" +
+                                                                             $"Damage: {dinosaur.velociraptorSwarmAttacks[1].attackPower}\n" +
+                                                                             $"Energy Reduction: {dinosaur.velociraptorSwarmAttacks[1].energyReduction}\n" +
+                                                                                  $"3) {dinosaur.velociraptorSwarmAttacks[2].name}\n" +
+                                                                             $"Damage: {dinosaur.velociraptorSwarmAttacks[2].attackPower}\n" +
+                                                                             $"Energy Reduction: {dinosaur.velociraptorSwarmAttacks[2].energyReduction}");
+                Console.WriteLine("---------------------------------");
+                int attackOption;
 
                     attackOption = Convert.ToInt32(Console.ReadLine());
                     switch (attackOption)

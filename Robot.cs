@@ -63,7 +63,7 @@ namespace Robots_Vs._Dinosaurs
 
             metalGut.name = "Da Belly";
             metalGut.attackPower = rand.Next(25, 75);
-            kingCrown.powerLevelReduction = 100;
+            metalGut.powerLevelReduction = 100;
 
             kingWeapons.Add(blunderBuss);
             kingWeapons.Add(kingCrown);

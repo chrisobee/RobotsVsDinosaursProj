@@ -8,6 +8,8 @@ namespace Robots_Vs._Dinosaurs
         {
             Battlefield battle = new Battlefield();
 
+            Console.WriteLine("Robots Vs. Dinosaurs\n" + "Press Enter to Begin\n" + "------------------------------------");
+            Console.ReadLine();
             battle.Fight();
         }
     }
