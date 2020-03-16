@@ -23,7 +23,7 @@ namespace Robots_Vs._Dinosaurs
 
             AttackType bigChomp = new AttackType();
             bigChomp.name = "CHOMP";
-            bigChomp.attackPower = rand.Next(50, 150);
+            bigChomp.attackPower = rand.Next(50, 100);
             bigChomp.energyReduction = 100;
             tRexAttacks[0] = bigChomp;
 
@@ -46,7 +46,7 @@ namespace Robots_Vs._Dinosaurs
 
             AttackType charge = new AttackType();
             charge.name = "CHARGE";
-            charge.attackPower = rand.Next(45, 100);
+            charge.attackPower = rand.Next(45, 90);
             charge.energyReduction = 100;
             triceratopsAttacks[0] = charge;
 

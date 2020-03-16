@@ -16,6 +16,7 @@ namespace Robots_Vs._Dinosaurs
         public bool aliveTarget = false;
         public bool robotFirst;
         public bool energyCheck;
+        public bool dinoSecondTurn;
 
 
         //Member Methods
@@ -145,7 +146,6 @@ namespace Robots_Vs._Dinosaurs
         
         public void PerformDinoTurn(List<Robot> robots, List<Dinosaur> dinosaurs)
         {
-            robotFirst = false;
             for (int j = 0; j < dinosaurs.Count; j++)
             {
                 if (dinosaurs[j].health <= 0)
@@ -252,31 +252,38 @@ namespace Robots_Vs._Dinosaurs
             if(CheckWhoGoesFirst() == true)
             {
                 PerformRobotTurn(robots, dinosaurs);
-                energyCheck = true;
             }
             else
             {
                 PerformDinoTurn(robots, dinosaurs);
+                energyCheck = true;
             }
 
             while ((fleet.ganon.health > 0 || fleet.kingKRool.health > 0 || fleet.rob.health > 0) &&
                   ( herd.tRex.health > 0 || herd.triceratops.health > 0 || herd.velociraptorSwarm.health > 0))
             {
-                while(robotFirst == true)
+                if (energyCheck == true)
+                {
+                    PerformRobotTurn(robots, dinosaurs);
+                    energyCheck = false;
+                    if (dinoSecondTurn == true)
+                    {
+                        energyCheck = false;
+                        dinoSecondTurn = false;
+                        continue;
+                    }
+                    AddPowerLevel(robots);
+                    AddEnergy(dinosaurs);
+                }
+                else if(robotFirst == true)
                 {
                     PerformDinoTurn(robots, dinosaurs);
                     AddPowerLevel(robots);
                     AddEnergy(dinosaurs);
-                    energyCheck = false;
-                }
-
-                if(energyCheck == true)
-                {
-                    PerformRobotTurn(robots, dinosaurs);
-                    energyCheck = false;
-                    AddPowerLevel(robots);
-                    AddEnergy(dinosaurs);
-                }
+                    robotFirst = false;
+                    energyCheck = true;
+                    dinoSecondTurn = true;
+                } 
                 else
                 {
                     PerformRobotTurn(robots, dinosaurs);
@@ -287,6 +294,15 @@ namespace Robots_Vs._Dinosaurs
                 AddPowerLevel(robots);
                 AddEnergy(dinosaurs);
             
+            }
+
+            if(fleet.ganon.health > 0 || fleet.kingKRool.health > 0 || fleet.rob.health > 0)
+            {
+                Console.WriteLine("THE ROBOTS ARE VICTORIUS");
+            }
+            else if(herd.tRex.health > 0 || herd.triceratops.health > 0 || herd.velociraptorSwarm.health > 0)
+            {
+                Console.WriteLine("THE DINOS ARE VICTORIUS");
             }
 
         }
