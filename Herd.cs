@@ -33,7 +33,7 @@ namespace Robots_Vs._Dinosaurs
             while (dinosaur.energy < attack.energyReduction)
             {
                 Console.WriteLine("Not enough energy to use that attack");
-                ChooseAttack(dinosaur);
+                attack = ChooseAttack(dinosaur);
             }
             if(dinosaur.energy >= attack.energyReduction)
             {

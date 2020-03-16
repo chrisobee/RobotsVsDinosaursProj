@@ -35,15 +35,15 @@ namespace Robots_Vs._Dinosaurs
         {
             //Ganon weapon stats
             shadowFist.name = "Shadow Fist";
-            shadowFist.attackPower = rand.Next(1, 75);
+            shadowFist.attackPower = rand.Next(10, 100);
             shadowFist.powerLevelReduction = 100;
 
             shadowSword.name = "Shadow Sword";
-            shadowSword.attackPower = rand.Next(15, 50);
+            shadowSword.attackPower = rand.Next(40, 60);
             shadowSword.powerLevelReduction = 75;
 
             shadowKick.name = "Shadow Kick";
-            shadowKick.attackPower = rand.Next(20, 30);
+            shadowKick.attackPower = rand.Next(10, 30);
             shadowKick.powerLevelReduction = 50;
 
             ganonWeapons.Add(shadowFist);
@@ -54,15 +54,15 @@ namespace Robots_Vs._Dinosaurs
         {
             //King K. Rool weapon stats
             blunderBuss.name = "Blunderbuss";
-            blunderBuss.attackPower = rand.Next(15, 45);
+            blunderBuss.attackPower = rand.Next(25, 45);
             blunderBuss.powerLevelReduction = 60;
 
             kingCrown.name = "King Crown";
-            kingCrown.attackPower = rand.Next(20, 30);
+            kingCrown.attackPower = rand.Next(10, 30);
             kingCrown.powerLevelReduction = 40;
 
             metalGut.name = "Da Belly";
-            metalGut.attackPower = rand.Next(25, 75);
+            metalGut.attackPower = rand.Next(40, 80);
             metalGut.powerLevelReduction = 100;
 
             kingWeapons.Add(blunderBuss);
@@ -74,15 +74,15 @@ namespace Robots_Vs._Dinosaurs
         {
             //ROB weapon stats
             lazerEyes.name = "Lazer Eyes";
-            lazerEyes.attackPower = rand.Next(10, 65);
+            lazerEyes.attackPower = rand.Next(50, 65);
             lazerEyes.powerLevelReduction = 80;
 
             spinningRotor.name = "Spinning Rotor";
-            spinningRotor.attackPower = rand.Next(10, 35);
+            spinningRotor.attackPower = rand.Next(10, 25);
             spinningRotor.powerLevelReduction = 25;
 
             rocketBlast.name = "Rocket Blast";
-            rocketBlast.attackPower = rand.Next(15, 50);
+            rocketBlast.attackPower = rand.Next(35, 50);
             rocketBlast.powerLevelReduction = 50;
 
             robWeapons.Add(lazerEyes);

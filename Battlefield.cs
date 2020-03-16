@@ -17,18 +17,23 @@ namespace Robots_Vs._Dinosaurs
 
         //Member Methods
 
-        /*public void ChooseRobotWeapons(List<Robot> robots)
-        {
-            foreach (Robot robot in robots)
-            {
-                fleet.ChooseWeapon(robot);
-            }
-        }*/
         public void AddPowerLevel(List<Robot> robots)
         {
             foreach (Robot robot in robots)
             {
-                robot.powerLevel += 50;
+                if(robot.powerLevel <= 50)
+                {
+                    robot.powerLevel += 50;
+                    Console.WriteLine($"{robot.name}'s Power is now: {robot.powerLevel}");
+                    Console.WriteLine("---------------------------------");
+                }
+                else
+                {
+                    robot.powerLevel = 100;
+                    Console.WriteLine($"{robot.name}'s Power is now: {robot.powerLevel}");
+                    Console.WriteLine("---------------------------------");
+                }
+                
             }
         }
         
@@ -36,11 +41,23 @@ namespace Robots_Vs._Dinosaurs
         {
             foreach (Dinosaur dinosaur in dinosaurs)
             {
-                dinosaur.energy += 50;
+                if (dinosaur.energy <= 50)
+                {
+                    dinosaur.energy += 50;
+                    Console.WriteLine($"{dinosaur.type}'s Energy is now: {dinosaur.energy}");
+                    Console.WriteLine("---------------------------------");
+                }
+                else
+                {
+                    dinosaur.energy = 100;
+                    Console.WriteLine($"{dinosaur.type}'s Energy is now: {dinosaur.energy}");
+                    Console.WriteLine("---------------------------------");
+                }
+                
             }
         }
 
-
+        //the method that runs the entire fight and loops until every character on one team is dead
         public void Fight()
         {
             robots.Add(fleet.ganon);
@@ -53,6 +70,7 @@ namespace Robots_Vs._Dinosaurs
             while ((fleet.ganon.health > 0 || fleet.kingKRool.health > 0 || fleet.rob.health > 0) &&
                   ( herd.tRex.health > 0 || herd.triceratops.health > 0 || herd.velociraptorSwarm.health > 0))
             {
+                //Robot Turn
                 for (int i = 0; i < robots.Count; i++)
                 {
                     if(robots[i].health <= 0)
@@ -98,6 +116,7 @@ namespace Robots_Vs._Dinosaurs
 
                 }
 
+                //Dino turn
                 for (int j = 0; j < dinosaurs.Count; j++)
                 {
                     if(dinosaurs[j].health <= 0)
@@ -139,6 +158,7 @@ namespace Robots_Vs._Dinosaurs
                     
                 }
 
+                //adding power / energy at the end of the round
                 AddPowerLevel(robots);
                 AddEnergy(dinosaurs);
             
