@@ -13,6 +13,9 @@ namespace Robots_Vs._Dinosaurs
         Random rand = new Random();
         public List<Robot> robots = new List<Robot>();
         public List<Dinosaur> dinosaurs = new List<Dinosaur>();
+        public bool aliveTarget = false;
+        public bool robotFirst;
+        public bool energyCheck;
 
 
         //Member Methods
@@ -57,6 +60,185 @@ namespace Robots_Vs._Dinosaurs
             }
         }
 
+        public void PerformRobotTurn(List<Robot> robots, List<Dinosaur> dinosaurs)
+        {
+            for (int i = 0; i < robots.Count; i++)
+            {
+                if (robots[i].health <= 0)
+                {
+                    continue;
+                }
+                else
+                {
+                    Console.WriteLine($"It's {robots[i].name}'s turn.\nEnergy: {robots[i].powerLevel}\nChoose who he should attack\n1) T-Rex ({herd.tRex.health} HP)" +
+                                                                                  $"\n2) Triceratops ({herd.triceratops.health} HP)" +
+                                                                                  $"\n3) Velociraptor Swarm ({herd.velociraptorSwarm.health} HP)" +
+                                                                                  $"\n4) Skip Turn (to save power)");
+                    Console.WriteLine("---------------------------------");
+                    aliveTarget = false;
+                    while (aliveTarget == false)
+                    {
+                        int attackChoice = Convert.ToInt32(Console.ReadLine());
+
+                        switch (attackChoice)
+                        {
+                            case 1:
+                                if (herd.tRex.isDead == true)
+                                {
+                                    Console.WriteLine("That target is dead! Choose another");
+                                    continue;
+                                }
+                                else
+                                {
+                                    fleet.AttackDinosaur(herd.tRex, robots[i], fleet.ChooseWeapon(robots[i]));
+                                    Console.WriteLine($"{dinosaurs[0].type}'s health is now: {dinosaurs[0].health}\n" +
+                                            $"---------------------------------");
+                                    aliveTarget = true;
+                                    break;
+                                }
+
+                            case 2:
+                                if (herd.triceratops.isDead == true)
+                                {
+                                    Console.WriteLine("That target is dead! Choose another");
+                                    continue;
+                                }
+                                else
+                                {
+                                    fleet.AttackDinosaur(herd.triceratops, robots[i], fleet.ChooseWeapon(robots[i]));
+                                    Console.WriteLine($"{dinosaurs[1].type}'s health is now: {dinosaurs[1].health}\n" +
+                                        $"---------------------------------");
+                                    aliveTarget = true;
+                                    break;
+                                }
+
+                            case 3:
+                                if (herd.velociraptorSwarm.isDead == true)
+                                {
+                                    Console.WriteLine("That target is dead! Choose another");
+                                    continue;
+                                }
+                                else
+                                {
+                                    fleet.AttackDinosaur(herd.velociraptorSwarm, robots[i], fleet.ChooseWeapon(robots[i]));
+                                    Console.WriteLine($"{dinosaurs[2].type}'s health is now: {dinosaurs[2].health}\n" +
+                                        $"---------------------------------");
+                                    aliveTarget = true;
+                                    break;
+                                }
+
+                            case 4:
+                                Console.WriteLine("Turn Skipped");
+                                continue;
+                            default:
+                                Console.WriteLine("Please type the number matching the dinosaur");
+                                continue;
+
+                        }
+                    }
+
+                }
+
+
+            }
+        }
+        
+        public void PerformDinoTurn(List<Robot> robots, List<Dinosaur> dinosaurs)
+        {
+            robotFirst = false;
+            for (int j = 0; j < dinosaurs.Count; j++)
+            {
+                if (dinosaurs[j].health <= 0)
+                {
+                    continue;
+                }
+                else
+                {
+                    Console.WriteLine($"It's {dinosaurs[j].type}'s turn.\n Energy: {dinosaurs[j].energy}\nChoose who it should attack\n1) Ganon ({fleet.ganon.health} HP)" +
+                                                                                              $"\n2) King K. Rool ({fleet.kingKRool.health} HP)" +
+                                                                                              $"\n3) R.O.B. ({fleet.rob.health} HP)" +
+                                                                                              $"\n4) Skip Turn (to save energy)");
+                    aliveTarget = false;
+                    while (aliveTarget == false)
+                    {
+                        int attackChoice = Convert.ToInt32(Console.ReadLine());
+
+                        switch (attackChoice)
+                        {
+                            case 1:
+                                if (fleet.ganon.isDead == true)
+                                {
+                                    Console.WriteLine("That target is dead! Choose another");
+                                    continue;
+                                }
+                                else
+                                {
+                                    herd.AttackRobot(dinosaurs[j], fleet.ganon, herd.ChooseAttack(dinosaurs[j]));
+                                    Console.WriteLine($"{robots[0].name}'s health is now: {robots[0].health}\n" +
+                                        $"---------------------------------");
+                                    aliveTarget = true;
+                                    break;
+                                }
+
+                            case 2:
+                                if (fleet.kingKRool.isDead == true)
+                                {
+                                    Console.WriteLine("That target is dead! Choose another");
+                                    continue;
+                                }
+                                else
+                                {
+                                    herd.AttackRobot(dinosaurs[j], fleet.kingKRool, herd.ChooseAttack(dinosaurs[j]));
+                                    Console.WriteLine($"{robots[1].name}'s health is now: {robots[1].health}\n" +
+                                        $"---------------------------------");
+                                    aliveTarget = true;
+                                    break;
+                                }
+
+                            case 3:
+                                if (fleet.rob.isDead == true)
+                                {
+                                    Console.WriteLine("That target is dead! Choose another");
+                                    continue;
+                                }
+                                else
+                                {
+                                    herd.AttackRobot(dinosaurs[j], fleet.rob, herd.ChooseAttack(dinosaurs[j]));
+                                    Console.WriteLine($"{robots[2].name}'s health is now: {robots[2].health}\n" +
+                                        $"---------------------------------");
+                                    aliveTarget = true;
+                                    break;
+                                }
+
+                            case 4:
+                                Console.WriteLine("Turn Skipped");
+                                continue;
+                            default:
+                                continue;
+                        }
+                    }
+
+                }
+
+            }
+        }
+
+        public bool CheckWhoGoesFirst()
+        {
+            int randomCheck;
+            randomCheck = rand.Next(1, 10);
+
+            if (randomCheck <= 5)
+            {
+                robotFirst = true;    
+            }
+            else
+            {
+                robotFirst = false;
+            }
+            return robotFirst;
+        }
+
         //the method that runs the entire fight and loops until every character on one team is dead
         public void Fight()
         {
@@ -67,95 +249,38 @@ namespace Robots_Vs._Dinosaurs
             dinosaurs.Add(herd.triceratops);
             dinosaurs.Add(herd.velociraptorSwarm);
 
+            if(CheckWhoGoesFirst() == true)
+            {
+                PerformRobotTurn(robots, dinosaurs);
+                energyCheck = true;
+            }
+            else
+            {
+                PerformDinoTurn(robots, dinosaurs);
+            }
+
             while ((fleet.ganon.health > 0 || fleet.kingKRool.health > 0 || fleet.rob.health > 0) &&
                   ( herd.tRex.health > 0 || herd.triceratops.health > 0 || herd.velociraptorSwarm.health > 0))
             {
-                //Robot Turn
-                for (int i = 0; i < robots.Count; i++)
+                while(robotFirst == true)
                 {
-                    if(robots[i].health <= 0)
-                    {
-                        continue;
-                    }
-                    else
-                    {
-                        Console.WriteLine($"It's {robots[i].name}'s turn.\nEnergy: {robots[i].powerLevel}\nChoose who he should attack\n1) T-Rex ({herd.tRex.health} HP)" +
-                                                                                      $"\n2) Triceratops ({herd.triceratops.health} HP)" +
-                                                                                      $"\n3) Velociraptor Swarm ({herd.velociraptorSwarm.health} HP)" +
-                                                                                      $"\n4) Skip Turn (to save power)");
-                        Console.WriteLine("---------------------------------");
-                        int attackChoice = Convert.ToInt32(Console.ReadLine());
-
-                        switch (attackChoice)
-                        {
-                            case 1:
-                                fleet.AttackDinosaur(herd.tRex, robots[i], fleet.ChooseWeapon(robots[i]));
-                                Console.WriteLine($"{dinosaurs[0].type}'s health is now: {dinosaurs[0].health}\n" +
-                                        $"---------------------------------");
-                                continue;
-                            case 2:
-                                fleet.AttackDinosaur(herd.triceratops, robots[i], fleet.ChooseWeapon(robots[i]));
-                                Console.WriteLine($"{dinosaurs[1].type}'s health is now: {dinosaurs[1].health}\n" +
-                                    $"---------------------------------");
-                                continue;
-                            case 3:
-                                fleet.AttackDinosaur(herd.velociraptorSwarm, robots[i], fleet.ChooseWeapon(robots[i]));
-                                Console.WriteLine($"{dinosaurs[2].type}'s health is now: {dinosaurs[2].health}\n" +
-                                    $"---------------------------------");
-                                continue;
-                            case 4:
-                                Console.WriteLine("Turn Skipped");
-                                continue;
-                            default:
-                                Console.WriteLine("Please type the number matching the dinosaur");
-                                continue;
-
-                        }
-                    }
-                    
-
+                    PerformDinoTurn(robots, dinosaurs);
+                    AddPowerLevel(robots);
+                    AddEnergy(dinosaurs);
+                    energyCheck = false;
                 }
 
-                //Dino turn
-                for (int j = 0; j < dinosaurs.Count; j++)
+                if(energyCheck == true)
                 {
-                    if(dinosaurs[j].health <= 0)
-                    {
-                        continue;
-                    }
-                    else
-                    {
-                        Console.WriteLine($"It's {dinosaurs[j].type}'s turn.\n Energy: {dinosaurs[j].energy}\nChoose who it should attack\n1) Ganon ({fleet.ganon.health} HP)" +
-                                                                                                  $"\n2) King K. Rool ({fleet.kingKRool.health} HP)" +
-                                                                                                  $"\n3) R.O.B. ({fleet.rob.health} HP)" +
-                                                                                                  $"\n4) Skip Turn (to save energy)");
-                        int attackChoice = Convert.ToInt32(Console.ReadLine());
-
-                        switch (attackChoice)
-                        {
-                            case 1:
-                                herd.AttackRobot(dinosaurs[j], fleet.ganon, herd.ChooseAttack(dinosaurs[j]));
-                                Console.WriteLine($"{robots[0].name}'s health is now: {robots[0].health}\n" +
-                                    $"---------------------------------");
-                                continue;
-                            case 2:
-                                herd.AttackRobot(dinosaurs[j], fleet.kingKRool, herd.ChooseAttack(dinosaurs[j]));
-                                Console.WriteLine($"{robots[1].name}'s health is now: {robots[1].health}\n" +
-                                    $"---------------------------------");
-                                continue;
-                            case 3:
-                                herd.AttackRobot(dinosaurs[j], fleet.rob, herd.ChooseAttack(dinosaurs[j]));
-                                Console.WriteLine($"{robots[2].name}'s health is now: {robots[2].health}\n" +
-                                    $"---------------------------------");
-                                continue;
-                            case 4:
-                                Console.WriteLine("Turn Skipped");
-                                continue;
-                            default:
-                                continue;
-                        }
-                    }
-                    
+                    PerformRobotTurn(robots, dinosaurs);
+                    energyCheck = false;
+                    AddPowerLevel(robots);
+                    AddEnergy(dinosaurs);
+                }
+                else
+                {
+                    PerformRobotTurn(robots, dinosaurs);
+                    PerformDinoTurn(robots, dinosaurs);
                 }
 
                 //adding power / energy at the end of the round

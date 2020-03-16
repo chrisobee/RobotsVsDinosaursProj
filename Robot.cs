@@ -11,7 +11,7 @@ namespace Robots_Vs._Dinosaurs
         public string name;
         public int health;
         public int powerLevel;
-        public int attackPower;
+        public bool isDead = false;
         public List<Weapon> ganonWeapons = new List<Weapon>();
         public List<Weapon> kingWeapons = new List<Weapon>();
         public List<Weapon> robWeapons = new List<Weapon>();

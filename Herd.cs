@@ -43,6 +43,7 @@ namespace Robots_Vs._Dinosaurs
                 if (target.health <= 0)
                 {
                     Console.WriteLine($"{target.name.ToUpper()} HAS DIED");
+                    target.isDead = true;
                 }
             }
  

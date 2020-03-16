@@ -11,6 +11,7 @@ namespace Robots_Vs._Dinosaurs
         public string type;
         public int health;
         public int energy;
+        public bool isDead = false;
         public AttackType[] tRexAttacks;
         public AttackType[] triceratopsAttacks;
         public AttackType[] velociraptorSwarmAttacks;
